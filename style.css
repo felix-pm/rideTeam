@@ -135,3 +135,26 @@ input:focus {
 .results::-webkit-scrollbar-thumb:hover {
   background: #bbb;
 }
+
+
+/* ... (Garde tout ton CSS précédent) ... */
+
+/* Ajoute ceci à la fin */
+.btn-secondary {
+  width: 100%;
+  padding: 12px;
+  background-color: #e74c3c; /* Rouge sympa pour le PDF */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px; /* Espace avec l'autre bouton */
+  transition: transform 0.2s, background 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
