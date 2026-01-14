@@ -256,5 +256,5 @@ function downloadRoadbook() {
     stepNumber++;
   });
 
-  doc.save("mon-roadbook-visuel.pdf");
+  doc.save("mon-roadbook.pdf");
 }
