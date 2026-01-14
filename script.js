@@ -28,38 +28,47 @@ let routeLayer = null;
 let currentSteps = []; 
 
 /************************
- * AUTOCOMPLETE *
+ * AUTOCOMPLETE (Rapide) *
  ************************/
 function setupAutocomplete(inputId, resultsId) {
   const input = document.getElementById(inputId);
   const results = document.getElementById(resultsId);
+  let debounceTimer; // Variable pour stocker le minuteur
 
-  input.addEventListener("input", async () => {
-    const query = input.value.trim();
-    if (query.length < 3) {
-      results.innerHTML = "";
-      return;
-    }
+  input.addEventListener("input", () => {
+    // 1. On annule la précédente demande si l'utilisateur continue de taper
+    clearTimeout(debounceTimer);
 
-    try {
-      const response = await fetch(`api.php?type=geocode&q=${query}`);
-      const places = await response.json();
-      results.innerHTML = "";
+    // 2. On attend 300ms avant de lancer la vraie recherche
+    debounceTimer = setTimeout(async () => {
+      const query = input.value.trim();
+      
+      if (query.length < 3) {
+        results.innerHTML = "";
+        return;
+      }
 
-      places.forEach(place => {
-        const li = document.createElement("li");
-        li.textContent = place.display_name;
-        li.addEventListener("click", () => {
-          input.value = place.display_name;
-          input.dataset.lat = place.lat;
-          input.dataset.lon = place.lon;
-          results.innerHTML = "";
+      try {
+        const response = await fetch(`api.php?type=geocode&q=${query}`);
+        const places = await response.json();
+        
+        results.innerHTML = "";
+
+        places.forEach(place => {
+          const li = document.createElement("li");
+          li.textContent = place.display_name;
+          li.addEventListener("click", () => {
+            input.value = place.display_name;
+            input.dataset.lat = place.lat;
+            input.dataset.lon = place.lon;
+            results.innerHTML = "";
+          });
+          results.appendChild(li);
         });
-        results.appendChild(li);
-      });
-    } catch (error) {
-      console.error("Erreur autocomplete:", error);
-    }
+      } catch (error) {
+        console.error("Erreur autocomplete:", error);
+      }
+    }, 300); // <-- Le délai magique (300ms)
   });
 
   document.addEventListener("click", (e) => {
