@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Calcul d’itinéraire</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script defer src="script.js"></script>
+</head>
+
+<body>
+
+  <div class="sidebar">
+    <h2 style="font-size: 18px; margin-bottom: 5px; color:#333;">Calcul d'itinéraire</h2>
+    
+    <div class="search-container">
+      <input id="start" placeholder="📍 Ville de départ" autocomplete="off">
+      <ul id="start-results" class="results"></ul>
+    </div>
+
+    <div class="search-container">
+      <input id="end" placeholder="🏁 Ville d'arrivée" autocomplete="off">
+      <ul id="end-results" class="results"></ul>
+    </div>
+
+    <button class="btn-main" onclick="calculateRoute()">C'est parti !</button>
+  </div>
+
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</body>
+
+</html>
